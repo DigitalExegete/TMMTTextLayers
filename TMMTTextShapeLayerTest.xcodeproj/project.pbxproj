@@ -12,6 +12,8 @@
 		BE60C5E51A45163E0094DC27 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE60C5E41A45163E0094DC27 /* Images.xcassets */; };
 		BE60C5E81A45163E0094DC27 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE60C5E61A45163E0094DC27 /* MainMenu.xib */; };
 		BE60C5F41A45163E0094DC27 /* CATextShapeLayerTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BE60C5F31A45163E0094DC27 /* CATextShapeLayerTestTests.m */; };
+		BE60C5FF1A451CF70094DC27 /* TMMTTextShapeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BE60C5FE1A451CF70094DC27 /* TMMTTextShapeLayer.m */; };
+		BE60C6011A451EAA0094DC27 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE60C6001A451EAA0094DC27 /* Quartz.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,16 +27,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BE60C5DA1A45163E0094DC27 /* CATextShapeLayerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CATextShapeLayerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE60C5DA1A45163E0094DC27 /* TMMTTextShapeLayerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMMTTextShapeLayerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE60C5DE1A45163E0094DC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE60C5DF1A45163E0094DC27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BE60C5E01A45163E0094DC27 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BE60C5E21A45163E0094DC27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE60C5E41A45163E0094DC27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BE60C5E71A45163E0094DC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		BE60C5ED1A45163E0094DC27 /* CATextShapeLayerTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CATextShapeLayerTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE60C5ED1A45163E0094DC27 /* TMMTTextShapeLayerTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TMMTTextShapeLayerTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE60C5F21A45163E0094DC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE60C5F31A45163E0094DC27 /* CATextShapeLayerTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CATextShapeLayerTestTests.m; sourceTree = "<group>"; };
+		BE60C5FD1A451CF70094DC27 /* TMMTTextShapeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMTTextShapeLayer.h; sourceTree = "<group>"; };
+		BE60C5FE1A451CF70094DC27 /* TMMTTextShapeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMTTextShapeLayer.m; sourceTree = "<group>"; };
+		BE60C6001A451EAA0094DC27 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE60C6011A451EAA0094DC27 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +64,7 @@
 		BE60C5D11A45163E0094DC27 = {
 			isa = PBXGroup;
 			children = (
+				BE60C6001A451EAA0094DC27 /* Quartz.framework */,
 				BE60C5DC1A45163E0094DC27 /* CATextShapeLayerTest */,
 				BE60C5F01A45163E0094DC27 /* CATextShapeLayerTestTests */,
 				BE60C5DB1A45163E0094DC27 /* Products */,
@@ -67,8 +74,8 @@
 		BE60C5DB1A45163E0094DC27 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE60C5DA1A45163E0094DC27 /* CATextShapeLayerTest.app */,
-				BE60C5ED1A45163E0094DC27 /* CATextShapeLayerTestTests.xctest */,
+				BE60C5DA1A45163E0094DC27 /* TMMTTextShapeLayerTest.app */,
+				BE60C5ED1A45163E0094DC27 /* TMMTTextShapeLayerTestTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,6 +88,8 @@
 				BE60C5E41A45163E0094DC27 /* Images.xcassets */,
 				BE60C5E61A45163E0094DC27 /* MainMenu.xib */,
 				BE60C5DD1A45163E0094DC27 /* Supporting Files */,
+				BE60C5FD1A451CF70094DC27 /* TMMTTextShapeLayer.h */,
+				BE60C5FE1A451CF70094DC27 /* TMMTTextShapeLayer.m */,
 			);
 			path = CATextShapeLayerTest;
 			sourceTree = "<group>";
@@ -114,9 +123,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BE60C5D91A45163E0094DC27 /* CATextShapeLayerTest */ = {
+		BE60C5D91A45163E0094DC27 /* TMMTTextShapeLayerTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE60C5F71A45163E0094DC27 /* Build configuration list for PBXNativeTarget "CATextShapeLayerTest" */;
+			buildConfigurationList = BE60C5F71A45163E0094DC27 /* Build configuration list for PBXNativeTarget "TMMTTextShapeLayerTest" */;
 			buildPhases = (
 				BE60C5D61A45163E0094DC27 /* Sources */,
 				BE60C5D71A45163E0094DC27 /* Frameworks */,
@@ -126,14 +135,14 @@
 			);
 			dependencies = (
 			);
-			name = CATextShapeLayerTest;
+			name = TMMTTextShapeLayerTest;
 			productName = CATextShapeLayerTest;
-			productReference = BE60C5DA1A45163E0094DC27 /* CATextShapeLayerTest.app */;
+			productReference = BE60C5DA1A45163E0094DC27 /* TMMTTextShapeLayerTest.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BE60C5EC1A45163E0094DC27 /* CATextShapeLayerTestTests */ = {
+		BE60C5EC1A45163E0094DC27 /* TMMTTextShapeLayerTestTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE60C5FA1A45163E0094DC27 /* Build configuration list for PBXNativeTarget "CATextShapeLayerTestTests" */;
+			buildConfigurationList = BE60C5FA1A45163E0094DC27 /* Build configuration list for PBXNativeTarget "TMMTTextShapeLayerTestTests" */;
 			buildPhases = (
 				BE60C5E91A45163E0094DC27 /* Sources */,
 				BE60C5EA1A45163E0094DC27 /* Frameworks */,
@@ -144,9 +153,9 @@
 			dependencies = (
 				BE60C5EF1A45163E0094DC27 /* PBXTargetDependency */,
 			);
-			name = CATextShapeLayerTestTests;
+			name = TMMTTextShapeLayerTestTests;
 			productName = CATextShapeLayerTestTests;
-			productReference = BE60C5ED1A45163E0094DC27 /* CATextShapeLayerTestTests.xctest */;
+			productReference = BE60C5ED1A45163E0094DC27 /* TMMTTextShapeLayerTestTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -167,7 +176,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BE60C5D51A45163E0094DC27 /* Build configuration list for PBXProject "CATextShapeLayerTest" */;
+			buildConfigurationList = BE60C5D51A45163E0094DC27 /* Build configuration list for PBXProject "TMMTTextShapeLayerTest" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -180,8 +189,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BE60C5D91A45163E0094DC27 /* CATextShapeLayerTest */,
-				BE60C5EC1A45163E0094DC27 /* CATextShapeLayerTestTests */,
+				BE60C5D91A45163E0094DC27 /* TMMTTextShapeLayerTest */,
+				BE60C5EC1A45163E0094DC27 /* TMMTTextShapeLayerTestTests */,
 			);
 		};
 /* End PBXProject section */
@@ -212,6 +221,7 @@
 			files = (
 				BE60C5E31A45163E0094DC27 /* main.m in Sources */,
 				BE60C5E11A45163E0094DC27 /* AppDelegate.m in Sources */,
+				BE60C5FF1A451CF70094DC27 /* TMMTTextShapeLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +238,7 @@
 /* Begin PBXTargetDependency section */
 		BE60C5EF1A45163E0094DC27 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BE60C5D91A45163E0094DC27 /* CATextShapeLayerTest */;
+			target = BE60C5D91A45163E0094DC27 /* TMMTTextShapeLayerTest */;
 			targetProxy = BE60C5EE1A45163E0094DC27 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -328,7 +338,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = CATextShapeLayerTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TMMTTextShapeLayerTest;
 			};
 			name = Debug;
 		};
@@ -339,7 +349,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = CATextShapeLayerTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TMMTTextShapeLayerTest;
 			};
 			name = Release;
 		};
@@ -358,7 +368,7 @@
 				);
 				INFOPLIST_FILE = CATextShapeLayerTestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TMMTTextShapeLayerTestTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CATextShapeLayerTest.app/Contents/MacOS/CATextShapeLayerTest";
 			};
 			name = Debug;
@@ -374,7 +384,7 @@
 				);
 				INFOPLIST_FILE = CATextShapeLayerTestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TMMTTextShapeLayerTestTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CATextShapeLayerTest.app/Contents/MacOS/CATextShapeLayerTest";
 			};
 			name = Release;
@@ -382,7 +392,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BE60C5D51A45163E0094DC27 /* Build configuration list for PBXProject "CATextShapeLayerTest" */ = {
+		BE60C5D51A45163E0094DC27 /* Build configuration list for PBXProject "TMMTTextShapeLayerTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE60C5F51A45163E0094DC27 /* Debug */,
@@ -391,7 +401,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE60C5F71A45163E0094DC27 /* Build configuration list for PBXNativeTarget "CATextShapeLayerTest" */ = {
+		BE60C5F71A45163E0094DC27 /* Build configuration list for PBXNativeTarget "TMMTTextShapeLayerTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE60C5F81A45163E0094DC27 /* Debug */,
@@ -399,7 +409,7 @@
 			);
 			defaultConfigurationIsVisible = 0;
 		};
-		BE60C5FA1A45163E0094DC27 /* Build configuration list for PBXNativeTarget "CATextShapeLayerTestTests" */ = {
+		BE60C5FA1A45163E0094DC27 /* Build configuration list for PBXNativeTarget "TMMTTextShapeLayerTestTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE60C5FB1A45163E0094DC27 /* Debug */,
