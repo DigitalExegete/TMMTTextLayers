@@ -60,4 +60,10 @@
 - (void)setForegroundColor:(CGColorRef)color;
 - (void)setFontSize:(NSUInteger)fontSize;
 
+//@property(copy) NSString *truncationMode;
+//@property(getter=isWrapped) BOOL wrapped;
+
+
+//The properties that I will have to replace in my new class.
+
 @end

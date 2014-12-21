@@ -191,8 +191,6 @@
 	attributedString = [attrString copy];
 	
 	self.stringSize = [attributedString size];
-	NSRect bounds = NSMakeRect(0, 0, self.stringSize.width, self.stringSize.height);
-	self.bounds = NSIntegralRect( bounds );
 	
 }
 
@@ -203,21 +201,45 @@
 	
 	NSColor *convertingColor = [NSColor colorWithCGColor:color];
 	self.textColor = convertingColor;
+	[self updateAttributedString];
+	[self updateTextPath];
 	
 }
+
+
 
 //--------------------------------------------------------
 
 - (void)setFont:(CFTypeRef)font
 {
-	self.textFont = (NSFont *)font;	
+	
+	CFTypeID cfTID = CFGetTypeID(font);
+	
+	if (cfTID == CGFontGetTypeID())
+	{
+		CTFontRef newFont = CTFontCreateWithGraphicsFont((CGFontRef)font, 0, NULL, NULL);
+		self.textFont = (NSFont *)newFont;
+		CFRelease(newFont);
+	}
+	else if (cfTID == CTFontGetTypeID())
+	{
+		self.textFont = (NSFont *)font;
+	}
+	
+
+	
+	[self updateAttributedString];
+	[self updateTextPath];
 }
 
 
 - (void)setFontSize:(NSUInteger)fontSize
 {
 	
-	
+	NSFont *newFont = [NSFont fontWithName:[self.textFont fontName] size:fontSize];
+	[self setTextFont:newFont];
+	[self updateAttributedString];
+	[self updateTextPath];
 	
 }
 
