@@ -179,9 +179,9 @@
 	
 	
 	//Paragraph Style
-	NSMutableParagraphStyle *digRadParagraphStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
-	[digRadParagraphStyle setAlignment:NSLeftTextAlignment];
-	[layerTextAttributeDictionary setObject:digRadParagraphStyle forKey:NSParagraphStyleAttributeName];
+	NSMutableParagraphStyle *tmmtParagraphStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+	[tmmtParagraphStyle setAlignment:self.paragraphAlignment];
+	[layerTextAttributeDictionary setObject:tmmtParagraphStyle forKey:NSParagraphStyleAttributeName];
 	NSMutableAttributedString *attrString = [[[NSMutableAttributedString alloc] initWithString:self.string attributes:layerTextAttributeDictionary] autorelease];
 	
 	
