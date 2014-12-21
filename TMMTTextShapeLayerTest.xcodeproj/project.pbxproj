@@ -27,6 +27,7 @@
 		BE60C6281A4643370094DC27 /* FBDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = BE60C6191A4643370094DC27 /* FBDebug.m */; };
 		BE60C6291A4643370094DC27 /* FBBezierCurve+Edge.m in Sources */ = {isa = PBXBuildFile; fileRef = BE60C61B1A4643370094DC27 /* FBBezierCurve+Edge.m */; };
 		BE60C62A1A4643370094DC27 /* FBCurveLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE60C61D1A4643370094DC27 /* FBCurveLocation.m */; };
+		BE60C65E1A466F0C0094DC27 /* TMMTAttributedTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BE60C65D1A466F0C0094DC27 /* TMMTAttributedTextLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		BE60C61B1A4643370094DC27 /* FBBezierCurve+Edge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBBezierCurve+Edge.m"; sourceTree = "<group>"; };
 		BE60C61C1A4643370094DC27 /* FBCurveLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCurveLocation.h; sourceTree = "<group>"; };
 		BE60C61D1A4643370094DC27 /* FBCurveLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBCurveLocation.m; sourceTree = "<group>"; };
+		BE60C65C1A466F0C0094DC27 /* TMMTAttributedTextLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMTAttributedTextLayer.h; sourceTree = "<group>"; };
+		BE60C65D1A466F0C0094DC27 /* TMMTAttributedTextLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMTAttributedTextLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,8 @@
 			children = (
 				BE60C5FD1A451CF70094DC27 /* TMMTTextShapeLayer.h */,
 				BE60C5FE1A451CF70094DC27 /* TMMTTextShapeLayer.m */,
+				BE60C65C1A466F0C0094DC27 /* TMMTAttributedTextLayer.h */,
+				BE60C65D1A466F0C0094DC27 /* TMMTAttributedTextLayer.m */,
 			);
 			name = TMMTTextShapeLayer;
 			path = CATextShapeLayerTest;
@@ -303,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE60C6291A4643370094DC27 /* FBBezierCurve+Edge.m in Sources */,
+				BE60C65E1A466F0C0094DC27 /* TMMTAttributedTextLayer.m in Sources */,
 				BE60C6241A4643370094DC27 /* FBContourOverlap.m in Sources */,
 				BE60C62A1A4643370094DC27 /* FBCurveLocation.m in Sources */,
 				BE60C5E31A45163E0094DC27 /* main.m in Sources */,

@@ -42,11 +42,12 @@
 	[newTextLayer setBackgroundColor:[[NSColor whiteColor] CGColor]];
 	[newTextLayer setDelegate:newTextLayer];
 	[newTextLayer setFrame:NSMakeRect(10, 50, 640, 480)];
-	
+	[newTextLayer setParagraphAlignment:NSCenterTextAlignment];
+	[newTextLayer setBorderWidth:1];
 	[self.layerView setFrame:self.layerView.superview.bounds];
 	[[self.layerView layer] addSublayer:newTextLayer];
 	newTextLayer.textFont = [NSFont systemFontOfSize:16];//[NSFont fontWithName:@"Helvetica Neue" size:16];
-	[newTextLayer setString:@"2"];
+	[newTextLayer setString:@"2\nCLASP"];
 	
 
 }

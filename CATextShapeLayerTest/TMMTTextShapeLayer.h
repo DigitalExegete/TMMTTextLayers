@@ -16,7 +16,7 @@
  
  @header TMMTTextShapeLayer
  
- @brief A CALayer subclass that renders text as a CGPath, instead of compositing the text into a backing store like other classes. *cough*CATextLayer*cough*
+ @brief A CALayer subclass that renders text as a CGPath, instead of compositing the text into a backing store like other classes. *cough*CATextLayer*cough* This class is useful if you are using strings or attributed strings that have the same attributes throughout the entire string.  If you have varying attributes, you should use the @b TMMTAttributedTextLayer instead.
  
  
  @discussion This will be a multi-phased project.  Currently there is support for whatever the font natively supports.
@@ -28,7 +28,7 @@
  
  
  */
-@interface TMMTTextShapeLayer : CALayer
+@interface TMMTTextShapeLayer : CAShapeLayer
 
 /*!
  
@@ -40,7 +40,7 @@
 
 @property (retain) NSFont *textFont;
 @property (retain) NSColor *textColor;
-@property (retain) NSColor *strokeColor;
+@property (retain) NSColor *textStrokeColor;
 @property (assign) CGFloat strokeWidth;
 @property (assign) NSTextAlignment paragraphAlignment;
 @property (assign) NSUInteger ligatureType;

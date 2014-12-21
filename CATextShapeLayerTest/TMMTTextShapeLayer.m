@@ -45,7 +45,7 @@
 		_ligatureType = 1;
 		_paragraphAlignment = NSLeftTextAlignment;
 		_strokeWidth = 0;
-		_strokeColor = [[NSColor clearColor] retain];
+		_textStrokeColor = [[NSColor clearColor] retain];
 		_textColor = [[NSColor blackColor] retain];
 		_textFont = [[NSFont systemFontOfSize:12] retain];
 		
@@ -165,7 +165,7 @@
 	[layerTextAttributeDictionary setValue:@(self.strokeWidth) forKey:NSStrokeWidthAttributeName];
 	
 	//Stroke Color
-	[layerTextAttributeDictionary setValue:self.strokeColor forKey:NSStrokeColorAttributeName];
+	[layerTextAttributeDictionary setValue:self.textStrokeColor forKey:NSStrokeColorAttributeName];
 	
 	if (self.striketrough)
 	{
@@ -289,6 +289,7 @@
 	CFArrayRef lineArray = CTFrameGetLines(layerTextFrame);
 
 	self.runShapeLayerArray = [NSMutableArray array];
+	CGMutablePathRef textPath = CGPathCreateMutable();
 
 
 	for (CFIndex lineIndex = 0; lineIndex < CFArrayGetCount(lineArray); lineIndex++)
@@ -302,7 +303,6 @@
 		// TODO: If there is only one run, just use this layer as the layer.
 		for (CFIndex runIndex = 0; runIndex < CFArrayGetCount(runArray); runIndex++)
 		{
-			CGMutablePathRef textPath = CGPathCreateMutable();
 
 			CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runArray, runIndex);
 			
@@ -320,8 +320,14 @@
 			
 			CGFloat strokeWidth = fabsf([(__bridge NSFont *)runFont pointSize] * strokeWidthPercent);
 			
+
+			
 			if(!fillText)
 				runColor = [[NSColor clearColor] CGColor];
+			
+			self.fillColor = runColor;
+			self.strokeColor = strokeColor;
+			self.lineWidth = strokeWidth;
 			
 			// for each GLYPH in run Get the position, and then place the CAShapeLayer for that run at the position for those glyphs
 			CGPoint * runOrigin = malloc(sizeof(CGPoint)*CTRunGetGlyphCount(run));
@@ -337,36 +343,19 @@
 				CTRunGetGlyphs(run, thisGlyphRange, &glyph);
 				CGPathRef path = CTFontCreatePathForGlyph(runFont, glyph, NULL);
 				
-				CGAffineTransform transform = CGAffineTransformMakeTranslation(runOrigin[runGlyphIndex].x-runOrigin[0].x, 0);
+				CGAffineTransform transform = CGAffineTransformMakeTranslation(lineOrigins[lineIndex].x+runOrigin[runGlyphIndex].x, lineOrigins[lineIndex].y+runOrigin[runGlyphIndex].y);
 				CGPathAddPath(textPath, &transform, path);
 				CGPathRelease(path);
 				
 			}
 			
-			//Create the CAShapeLayer sublayer;
-			CAShapeLayer *runShapeLayer = [CAShapeLayer layer];
-			[self addSublayer:runShapeLayer];
-			[self.runShapeLayerArray addObject:runShapeLayer];
-			
-			[runShapeLayer setBorderWidth:0];
-			runShapeLayer.path = textPath;
-			CGPathRelease(textPath);
-			NSRect frame = CGPathGetBoundingBox(runShapeLayer.path);
-			frame.origin = CGPointMake(lineOrigins[lineIndex].x+runOrigin[0].x, lineOrigins[lineIndex].y+runOrigin[0].y);
-			frame = NSIntegralRect(frame);
-			runShapeLayer.frame = frame;
-			
-			[runShapeLayer setFillColor:runColor];
-			[runShapeLayer setStrokeColor:strokeColor];
-			[runShapeLayer setLineWidth:strokeWidth];
-			free(runOrigin);
-		
-			
 		}
 
+		
 
 	}
-
+	self.path = textPath;
+	CGPathRelease(textPath);
 	free(lineOrigins);
 }
 
