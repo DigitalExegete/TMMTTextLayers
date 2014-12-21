@@ -16,14 +16,14 @@
 
 @interface AppDelegate ()
 
-@property (weak) IBOutlet NSWindow *window;
-@property (weak) IBOutlet NSView *layerView;
-@property (weak) IBOutlet NSScrollView *scrollView;
-@property (weak) IBOutlet NSClipView *clipView;
-@property (weak) IBOutlet NSTextField *stringField;
-@property (strong) IBOutlet NSPanel *textInputPanel;
+@property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSView *layerView;
+@property (assign) IBOutlet NSScrollView *scrollView;
+@property (assign) IBOutlet NSClipView *clipView;
+@property (assign) IBOutlet NSTextField *stringField;
+@property (retain) IBOutlet NSPanel *textInputPanel;
 @property (assign) BOOL showWindow;
-@property (strong) TMMTTextShapeLayer *textLayer;
+@property (retain) TMMTTextShapeLayer *textLayer;
 @end
 
 @implementation AppDelegate
@@ -39,14 +39,14 @@
 	[self.clipView setWantsLayer:YES];
 	
 	[self.layerView setWantsLayer:YES];
-	[newTextLayer setBackgroundColor:[[NSColor darkGrayColor] CGColor]];
+	[newTextLayer setBackgroundColor:[[NSColor whiteColor] CGColor]];
 	[newTextLayer setDelegate:newTextLayer];
 	[newTextLayer setFrame:NSMakeRect(10, 50, 640, 480)];
 	
 	[self.layerView setFrame:self.layerView.superview.bounds];
 	[[self.layerView layer] addSublayer:newTextLayer];
-	newTextLayer.textFont = [NSFont fontWithName:@"Calibri Italic" size:32];
-	[newTextLayer setString:@"Testing fluecy\nTesting difference!\nWill's fjord is finished!"];
+	newTextLayer.textFont = [NSFont systemFontOfSize:16];//[NSFont fontWithName:@"Helvetica Neue" size:16];
+	[newTextLayer setString:@"2"];
 	
 
 }

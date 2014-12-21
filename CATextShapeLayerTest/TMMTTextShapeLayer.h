@@ -9,18 +9,21 @@
 
 
 #import <Quartz/Quartz.h>
+#import "NSBezierPath+Boolean.h"
+#import "NSBezierPath+Utilities.h"
 
 /*!
  
- @header CATextShapeLayer
+ @header TMMTTextShapeLayer
  
  @brief A CALayer subclass that renders text as a CGPath, instead of compositing the text into a backing store like other classes. *cough*CATextLayer*cough*
  
  
  @discussion This will be a multi-phased project.  Currently there is support for whatever the font natively supports.
  @par 1. Creating the TextShapeLayer to render text as a path - Completed 12/19/14
- @par 2. Altering the behavior so that it can accept attributed strings and add different shape layers for each run.
- @par 3. TBD.
+ @par 2. Altering the behavior so that it can accept attributed strings and add different shape layers for each run. - Completed 12/20/14
+ @par 3. Adding Support For strikethrough and underline
+ 
  
  
  
@@ -35,24 +38,22 @@
  */
 @property (copy) id string;
 
-@property (strong) NSFont *textFont;
-@property (strong) NSColor *foregroundColor;
-@property (strong) NSColor *strokeColor;
-@property (assign) NSInteger strokeWidth;
-@property (copy) NSString *paragraphAlignment;
+@property (retain) NSFont *textFont;
+@property (retain) NSColor *foregroundColor;
+@property (retain) NSColor *strokeColor;
+@property (assign) CGFloat strokeWidth;
+@property (assign) NSTextAlignment paragraphAlignment;
 @property (assign) NSUInteger ligatureType;
 
 
 /*!
  
- @brief does nothing
+ @brief currently not implemented does nothing
  
  */
 @property (assign) BOOL underlined;
 @property (assign) BOOL striketrough;
+@property (retain) NSColor *strikethroughColor;
 
-
-
-//@property (strong) NSAttributedString *attrString;
 
 @end

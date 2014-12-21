@@ -28,7 +28,7 @@
 }
 
 @property (assign) NSSize stringSize;
-@property (strong) NSMutableArray *runShapeLayerArray;
+@property (retain) NSMutableArray *runShapeLayerArray;
 @end
 
 @implementation TMMTTextShapeLayer
@@ -42,6 +42,12 @@
 		
 		_string = nil;
 		attributedString = nil;
+		_ligatureType = 1;
+		_paragraphAlignment = NSLeftTextAlignment;
+		_strokeWidth = 0;
+		_strokeColor = [[NSColor clearColor] retain];
+		_foregroundColor = [[NSColor blackColor] retain];
+		
 		
 	}
 	return self;
@@ -54,8 +60,12 @@
 	for (CAShapeLayer *sLayer in _runShapeLayerArray)
 		[sLayer removeFromSuperlayer];
 	
-	[_runShapeLayerArray removeAllObjects];
+	[_string release];
+	[attributedString release];
 	
+	[_runShapeLayerArray removeAllObjects];
+	[_runShapeLayerArray release];
+	[super dealloc];
 	
 }
 
@@ -104,43 +114,66 @@
 -(void)updateAttributedString
 {
 	
-	if ([self.string length] < 1)
+	if ([[self string] length] < 1)
 	{
+		_string = nil;
 		attributedString = nil;
 		return;
 		
 	}
 	
+	
+	NSMutableDictionary *layerTextAttributeDictionary = [NSMutableDictionary dictionary];
+	
+	//Text Font
 	NSFont *tmmtShapeLayerFont = self.textFont;
 	
 	if (!tmmtShapeLayerFont)
 		tmmtShapeLayerFont = [NSFont systemFontOfSize:kFontSize];
-	
-	NSMutableDictionary *layerTextAttributeDictionary = [NSMutableDictionary dictionary];
 	[layerTextAttributeDictionary setObject:tmmtShapeLayerFont forKey:NSFontAttributeName];
 	
+	
+	//Ligatures
+	[layerTextAttributeDictionary setObject:@(self.ligatureType) forKey:NSLigatureAttributeName];
+	
+	//Foreground Color
 	NSColor *foregroundColor = self.foregroundColor;
 	
 	if (!foregroundColor)
 		foregroundColor = [NSColor blackColor];
-	
-	//Ligatures
-	[layerTextAttributeDictionary setObject:@(1) forKey:NSLigatureAttributeName];
-	
+
 	[layerTextAttributeDictionary setObject:foregroundColor forKey:NSForegroundColorAttributeName];
-	NSMutableParagraphStyle *digRadParagraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy] ;
+	
+	//Stroke Weight
+	[layerTextAttributeDictionary setValue:@(self.strokeWidth) forKey:NSStrokeWidthAttributeName];
+	
+	//Stroke Color
+	[layerTextAttributeDictionary setValue:self.strokeColor forKey:NSStrokeColorAttributeName];
+	
+	if (self.striketrough)
+	{
+		//Strikethrough
+		[layerTextAttributeDictionary setValue:@(1) forKey:NSStrikethroughStyleAttributeName];
+		
+		//Strikethrough
+		[layerTextAttributeDictionary setValue:self.strikethroughColor forKey:NSStrikethroughColorAttributeName];
+	}
 	
 	
 	
-	[digRadParagraphStyle setAlignment:NSJustifiedTextAlignment];
+	//Paragraph Style
+	NSMutableParagraphStyle *digRadParagraphStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+	[digRadParagraphStyle setAlignment:NSLeftTextAlignment];
 	[layerTextAttributeDictionary setObject:digRadParagraphStyle forKey:NSParagraphStyleAttributeName];
-	
-	NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:self.string attributes:layerTextAttributeDictionary];
-	
+	NSMutableAttributedString *attrString = [[[NSMutableAttributedString alloc] initWithString:self.string attributes:layerTextAttributeDictionary] autorelease];
 	
 	
 	
-	attributedString = attrString;
+	if (attributedString)
+		[attributedString release];
+		
+	attributedString = [attrString copy];
+	
 	self.stringSize = [attributedString size];
 	NSRect bounds = NSMakeRect(0, 0, self.stringSize.width, self.stringSize.height);
 	self.bounds = NSIntegralRect( bounds );
@@ -150,6 +183,7 @@
 //--------------------------------------------------------
 
 
+//--------------------------------------------------------
 
 
 // Things to be careful of:
@@ -192,9 +226,10 @@
 		for (CFIndex runIndex = 0; runIndex < CFArrayGetCount(runArray); runIndex++)
 		{
 			CGMutablePathRef textPath = CGPathCreateMutable();
+
+			CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runArray, runIndex);
 			
 			// Get FONT for this run
-			CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runArray, runIndex);
 			CTFontRef runFont = CFDictionaryGetValue(CTRunGetAttributes(run), kCTFontAttributeName);
 			
 			NSDictionary *runDict = (__bridge NSDictionary *)CTRunGetAttributes(run);

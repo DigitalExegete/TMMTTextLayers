@@ -5,7 +5,7 @@
 //  Created by Andrew Finnell on 6/15/11.
 //  Copyright 2011 Fortunate Bear, LLC. All rights reserved.
 //
-
+#import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 
 @class FBBezierCurve;
