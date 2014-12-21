@@ -8,6 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface TMMTAttributedTextLayer : CALayer
+@interface TMMTAttributedTextLayer : CAShapeLayer
 
 @end

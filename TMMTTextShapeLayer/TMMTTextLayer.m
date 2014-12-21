@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Treblotto Music and Music Tech. All rights reserved.
 //
 
-#import "TMMTTextShapeLayer.h"
+#import "TMMTTextLayer.h"
 
 #define kFontSpacing 4
 #define kFontSize 26
 
 
 
-@interface TMMTTextShapeLayer()
+@interface TMMTTextLayer()
 {
 	
 	id _string;
@@ -31,7 +31,7 @@
 @property (retain) NSMutableArray *runShapeLayerArray;
 @end
 
-@implementation TMMTTextShapeLayer
+@implementation TMMTTextLayer
 
 -(instancetype)init
 {

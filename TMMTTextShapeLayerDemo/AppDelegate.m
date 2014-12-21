@@ -12,7 +12,7 @@
 
 
 #import "AppDelegate.h"
-#import "TMMTTextShapeLayer.h"
+#import "TMMTTextLayer.h"
 
 @interface AppDelegate ()
 
@@ -23,7 +23,7 @@
 @property (assign) IBOutlet NSTextField *stringField;
 @property (retain) IBOutlet NSPanel *textInputPanel;
 @property (assign) BOOL showWindow;
-@property (retain) TMMTTextShapeLayer *textLayer;
+@property (retain) TMMTTextLayer *textLayer;
 @end
 
 @implementation AppDelegate
@@ -33,7 +33,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Insert code here to initialize your application
 	self.showWindow = NO;
-	TMMTTextShapeLayer *newTextLayer = [TMMTTextShapeLayer layer];
+	TMMTTextLayer *newTextLayer = [TMMTTextLayer layer];
 	self.textLayer = newTextLayer;
 	[self.scrollView setWantsLayer:YES];
 	[self.clipView setWantsLayer:YES];

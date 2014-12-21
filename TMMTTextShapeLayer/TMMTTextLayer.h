@@ -28,7 +28,7 @@
  
  
  */
-@interface TMMTTextShapeLayer : CAShapeLayer
+@interface TMMTTextLayer : CAShapeLayer
 
 /*!
  
