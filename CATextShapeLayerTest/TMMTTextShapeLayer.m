@@ -47,6 +47,7 @@
 		_strokeWidth = 0;
 		_strokeColor = [[NSColor clearColor] retain];
 		_textColor = [[NSColor blackColor] retain];
+		_textFont = [[NSFont systemFontOfSize:12] retain];
 		
 		
 	}
@@ -258,7 +259,7 @@
 	
 	CTFramesetterRef layerTextFrameSetter =  CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attributedString);
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathAddRect(path, NULL, CGRectMake(0.0, 0.0, self.stringSize.width, self.stringSize.height));
+	CGPathAddRect(path, NULL, CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height));
 	CTFrameRef layerTextFrame = CTFramesetterCreateFrame(layerTextFrameSetter, CFRangeMake(0, 0), path, NULL);
 	
 	CFAutorelease(path);
