@@ -39,7 +39,7 @@
 @property (copy) id string;
 
 @property (retain) NSFont *textFont;
-@property (retain) NSColor *foregroundColor;
+@property (retain) NSColor *textColor;
 @property (retain) NSColor *strokeColor;
 @property (assign) CGFloat strokeWidth;
 @property (assign) NSTextAlignment paragraphAlignment;
@@ -55,5 +55,9 @@
 @property (assign) BOOL striketrough;
 @property (retain) NSColor *strikethroughColor;
 
+- (void)setAlignmentMode:(NSString *)alignment;
+- (void)setFont:(CFTypeRef)font;
+- (void)setForegroundColor:(CGColorRef)color;
+- (void)setFontSize:(NSUInteger)fontSize;
 
 @end

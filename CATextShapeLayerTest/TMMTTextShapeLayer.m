@@ -46,7 +46,7 @@
 		_paragraphAlignment = NSLeftTextAlignment;
 		_strokeWidth = 0;
 		_strokeColor = [[NSColor clearColor] retain];
-		_foregroundColor = [[NSColor blackColor] retain];
+		_textColor = [[NSColor blackColor] retain];
 		
 		
 	}
@@ -66,6 +66,22 @@
 	[_runShapeLayerArray removeAllObjects];
 	[_runShapeLayerArray release];
 	[super dealloc];
+	
+}
+
+- (void)setAlignmentMode:(NSString *)alignment
+{
+	
+	if ([alignment isEqualToString:kCAAlignmentCenter])
+		self.paragraphAlignment = NSCenterTextAlignment;
+	else if ([alignment isEqualToString:kCAAlignmentLeft])
+		self.paragraphAlignment = NSLeftTextAlignment;
+	else if ([alignment isEqualToString:kCAAlignmentRight])
+		self.paragraphAlignment = NSRightTextAlignment;
+	else if ([alignment isEqualToString:kCAAlignmentJustified])
+		self.paragraphAlignment = NSJustifiedTextAlignment;
+	else
+		self.paragraphAlignment = NSNaturalTextAlignment;
 	
 }
 
@@ -137,7 +153,7 @@
 	[layerTextAttributeDictionary setObject:@(self.ligatureType) forKey:NSLigatureAttributeName];
 	
 	//Foreground Color
-	NSColor *foregroundColor = self.foregroundColor;
+	NSColor *foregroundColor = self.textColor;
 	
 	if (!foregroundColor)
 		foregroundColor = [NSColor blackColor];
@@ -182,6 +198,28 @@
 
 //--------------------------------------------------------
 
+-(void)setForegroundColor:(CGColorRef)color
+{
+	
+	NSColor *convertingColor = [NSColor colorWithCGColor:color];
+	self.textColor = convertingColor;
+	
+}
+
+//--------------------------------------------------------
+
+- (void)setFont:(CFTypeRef)font
+{
+	self.textFont = (NSFont *)font;	
+}
+
+
+- (void)setFontSize:(NSUInteger)fontSize
+{
+	
+	
+	
+}
 
 //--------------------------------------------------------
 
