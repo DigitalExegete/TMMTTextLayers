@@ -671,17 +671,17 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="TMMTTextShapeLayerTest" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="TMMTTextLayer Demo" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="877" height="673"/>
+            <rect key="contentRect" x="335" y="390" width="594" height="471"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="4" width="877" height="673"/>
+                <rect key="frame" x="0.0" y="-1" width="594" height="471"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView wantsLayer="YES" borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="10" usesPredominantAxisScrolling="NO" id="7Pm-8p-TwA">
-                        <rect key="frame" x="-1" y="31" width="879" height="643"/>
+                        <rect key="frame" x="-1" y="31" width="596" height="441"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" wantsLayer="YES" copiesOnScroll="NO" id="gq5-Sp-8Bc">
                             <rect key="frame" x="1" y="1" width="166" height="79"/>
@@ -703,9 +703,9 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <button verticalHuggingPriority="750" id="FZ6-UB-09c">
+                    <button hidden="YES" verticalHuggingPriority="750" id="FZ6-UB-09c">
                         <rect key="frame" x="14" y="-1" width="134" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Text Input" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NzC-eI-fVC">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -714,10 +714,22 @@
                             <binding destination="Voe-Tx-rLC" name="value" keyPath="self.showWindow" id="rkS-i8-RSv"/>
                         </connections>
                     </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="hnS-XV-Gvi">
+                        <rect key="frame" x="509" y="6" width="87" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Zoom: 1.0" id="6Cu-i0-qBB">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <binding destination="Voe-Tx-rLC" name="value" keyPath="self.zoomString" id="tn8-E6-TSb"/>
+                        </connections>
+                    </textField>
                 </subviews>
             </view>
             <contentBorderThickness minY="32"/>
-            <point key="canvasLocation" x="105.5" y="133.5"/>
+            <point key="canvasLocation" x="-36" y="32.5"/>
         </window>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="CFb-pY-Syg" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>

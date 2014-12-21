@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BE60C5D91A45163E0094DC27"
-               BuildableName = "TMMTTextShapeLayerTest.app"
+               BuildableName = "TMMTTextLayers.app"
                BlueprintName = "TMMTTextLayers"
                ReferencedContainer = "container:TMMTTextLayers.xcodeproj">
             </BuildableReference>
@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BE60C5EC1A45163E0094DC27"
-               BuildableName = "TMMTTextShapeLayerTestTests.xctest"
+               BuildableName = "TMMTTextLayersTests.xctest"
                BlueprintName = "TMMTTextLayersTests"
                ReferencedContainer = "container:TMMTTextLayers.xcodeproj">
             </BuildableReference>
@@ -47,7 +47,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BE60C5EC1A45163E0094DC27"
-               BuildableName = "TMMTTextShapeLayerTestTests.xctest"
+               BuildableName = "TMMTTextLayersTests.xctest"
                BlueprintName = "TMMTTextLayersTests"
                ReferencedContainer = "container:TMMTTextLayers.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BE60C5D91A45163E0094DC27"
-            BuildableName = "TMMTTextShapeLayerTest.app"
+            BuildableName = "TMMTTextLayers.app"
             BlueprintName = "TMMTTextLayers"
             ReferencedContainer = "container:TMMTTextLayers.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BE60C5D91A45163E0094DC27"
-            BuildableName = "TMMTTextShapeLayerTest.app"
+            BuildableName = "TMMTTextLayers.app"
             BlueprintName = "TMMTTextLayers"
             ReferencedContainer = "container:TMMTTextLayers.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BE60C5D91A45163E0094DC27"
-            BuildableName = "TMMTTextShapeLayerTest.app"
+            BuildableName = "TMMTTextLayers.app"
             BlueprintName = "TMMTTextLayers"
             ReferencedContainer = "container:TMMTTextLayers.xcodeproj">
          </BuildableReference>
