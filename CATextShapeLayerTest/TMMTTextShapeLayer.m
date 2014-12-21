@@ -197,6 +197,22 @@
 
 //--------------------------------------------------------
 
+- (void)setName:(NSString *)name
+{
+	
+	[super setName:name];
+	
+	[[self runShapeLayerArray] enumerateObjectsUsingBlock:^(CAShapeLayer *tsl, NSUInteger idx, BOOL *stop) {
+		
+		[tsl setName:[NSString stringWithFormat:@"%@.%lu",name,idx]];
+		
+	}];
+	
+}
+
+
+//--------------------------------------------------------
+
 -(void)setForegroundColor:(CGColorRef)color
 {
 	
