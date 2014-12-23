@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6249" systemVersion="14C81f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6724" systemVersion="14C81f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6724"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -674,31 +674,33 @@
         <window title="TMMTTextLayer Demo" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="594" height="471"/>
+            <rect key="contentRect" x="335" y="390" width="1024" height="768"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+            <value key="minSize" type="size" width="1024" height="768"/>
+            <value key="maxSize" type="size" width="1024" height="768"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="-1" width="594" height="471"/>
+                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView wantsLayer="YES" borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="10" usesPredominantAxisScrolling="NO" id="7Pm-8p-TwA">
-                        <rect key="frame" x="-1" y="31" width="596" height="441"/>
+                    <scrollView wantsLayer="YES" borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="10" usesPredominantAxisScrolling="NO" id="7Pm-8p-TwA">
+                        <rect key="frame" x="-1" y="31" width="1026" height="738"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" wantsLayer="YES" copiesOnScroll="NO" id="gq5-Sp-8Bc">
+                        <clipView key="contentView" wantsLayer="YES" drawsBackground="NO" copiesOnScroll="NO" id="gq5-Sp-8Bc">
                             <rect key="frame" x="1" y="1" width="166" height="79"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view wantsLayer="YES" id="FUB-tj-Nkw">
-                                    <rect key="frame" x="0.0" y="0.0" width="166" height="79"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <rect key="frame" x="0.0" y="345" width="611" height="391"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="1" green="0.99937037777104809" blue="0.97162878336233482" alpha="1" colorSpace="calibratedRGB"/>
                         </clipView>
-                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="6fz-MD-wiL">
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="6fz-MD-wiL">
                             <rect key="frame" x="1" y="80" width="166" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="PaT-lo-TEI">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="PaT-lo-TEI">
                             <rect key="frame" x="167" y="1" width="15" height="79"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
@@ -715,7 +717,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="hnS-XV-Gvi">
-                        <rect key="frame" x="509" y="6" width="87" height="17"/>
+                        <rect key="frame" x="939" y="6" width="87" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Zoom: 1.0" id="6Cu-i0-qBB">
                             <font key="font" metaFont="system"/>
@@ -726,10 +728,23 @@
                             <binding destination="Voe-Tx-rLC" name="value" keyPath="self.zoomString" id="tn8-E6-TSb"/>
                         </connections>
                     </textField>
+                    <slider verticalHuggingPriority="750" id="54q-W4-w2A">
+                        <rect key="frame" x="869" y="7" width="57" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="Jxc-75-lzN"/>
+                        <connections>
+                            <binding destination="Voe-Tx-rLC" name="maxValue" keyPath="self.scrollView.maxMagnification" id="XPG-RE-taO"/>
+                            <binding destination="Voe-Tx-rLC" name="minValue" keyPath="self.scrollView.minMagnification" previousBinding="XPG-RE-taO" id="XmS-jq-GSG"/>
+                            <binding destination="Voe-Tx-rLC" name="value" keyPath="self.scrollView.magnification" previousBinding="XmS-jq-GSG" id="NoJ-EX-0mx"/>
+                        </connections>
+                    </slider>
                 </subviews>
             </view>
             <contentBorderThickness minY="32"/>
-            <point key="canvasLocation" x="231" y="237.5"/>
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="FR3-Jr-jxX"/>
+            </connections>
+            <point key="canvasLocation" x="195.5" y="282"/>
         </window>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="CFb-pY-Syg" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>

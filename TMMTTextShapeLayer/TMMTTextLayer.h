@@ -60,6 +60,8 @@
 - (void)setForegroundColor:(CGColorRef)color;
 - (void)setFontSize:(NSUInteger)fontSize;
 
+@property (readwrite, assign, getter=isWrapped) BOOL wrapped;
+
 //@property(copy) NSString *truncationMode;
 //@property(getter=isWrapped) BOOL wrapped;
 

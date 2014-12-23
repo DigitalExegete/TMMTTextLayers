@@ -45,15 +45,20 @@
 	[self.scrollView addObserver:self forKeyPath:@"magnification" options:NSKeyValueObservingOptionNew context:nil];
 	
 	self.showWindow = NO;
+		[self.scrollView setWantsLayer:YES];
+
+	[self.clipView setWantsLayer:YES];
+	[self.layerView setWantsLayer:YES];
+	self.layerView.layer.layoutManager = [CAConstraintLayoutManager layoutManager];
+	[self.layerView.layer setBackgroundColor:[[NSColor whiteColor] CGColor]];
+	
 	TMMTTextLayer *newTextLayer = [TMMTTextLayer layer];
 	self.textLayer = newTextLayer;
-	[self.scrollView setWantsLayer:YES];
-	[self.clipView setWantsLayer:YES];
-	
-	[self.layerView setWantsLayer:YES];
 	[newTextLayer setBackgroundColor:[[NSColor whiteColor] CGColor]];
 	[newTextLayer setDelegate:newTextLayer];
 	[newTextLayer setFrame:NSMakeRect(10, 50, 160, 30)];
+	[newTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
+	[newTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY relativeTo:@"superlayer" attribute:kCAConstraintMidY offset:-20]];
 	[newTextLayer setParagraphAlignment:NSCenterTextAlignment];
 	[newTextLayer setBorderWidth:0];
 	[self.layerView setFrame:self.layerView.superview.bounds];
@@ -61,8 +66,6 @@
 	newTextLayer.textFont = [NSFont systemFontOfSize:16];//[NSFont fontWithName:@"Helvetica Neue" size:16];
 	[newTextLayer setString:@"TMMTTextLayer"];
 	
-	self.scrollView.magnification = 1.0;
-	self.zoomString = @"Zoom: 1.0";
 	
 	CATextLayer *regularTextLayer = [CATextLayer layer];
 	[regularTextLayer setBackgroundColor:[[NSColor whiteColor] CGColor]];
@@ -74,11 +77,16 @@
 	[regularTextLayer setFontSize:16];
 	[regularTextLayer setBorderWidth:0];
 	[regularTextLayer setString:@"CATextLayer"];
+	[regularTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
+	[regularTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY relativeTo:@"superlayer" attribute:kCAConstraintMidY offset:20]];
 	[self.layerView.layer addSublayer:regularTextLayer];
 	[regularTextLayer setNeedsDisplay];
 	
 	
-	
+	self.scrollView.magnification = 1.0;
+	self.zoomString = @"Zoom: 1.0";
+
+
 
 }
 
@@ -88,15 +96,44 @@
 	if ([keyPath isEqualToString:@"magnification"])
 	{
 		self.zoomString = [NSString stringWithFormat:@"Zoom: %2.1f",self.scrollView.magnification];
+		
+		if (self.scrollView.magnification > 1)
+		{
+			[[self.scrollView horizontalScroller] setHidden:NO];
+			[[self.scrollView verticalScroller] setHidden:NO];
+		}
+		else
+		{
+			[[self.scrollView horizontalScroller] setHidden:YES];
+			[[self.scrollView verticalScroller] setHidden:YES];
+			if (self.scrollView.magnification == 1)
+				[self.layerView setFrame:self.scrollView.contentView.bounds];
+		}
+		
 	}
 	else
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 	
 }
 
+-(void)windowDidResize:(NSNotification *)notification
+{
+	
+//	self.layerView.frame = self.scrollView.contentView.bounds;
+	
+}
+
+-(void)windowWillClose:(NSNotification *)notification
+{
+
+	[NSApp terminate:self];
+	
+}
+
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	// Insert code here to tear down your application
 }
+
 
 
 - (IBAction)updateLayerText:(id)sender
