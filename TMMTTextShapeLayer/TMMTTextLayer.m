@@ -273,6 +273,8 @@
 	
 	NSUInteger lineCount =  [[self.string componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] count];
 	
+	
+	
 	CTFramesetterRef layerTextFrameSetter =  CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attributedString);
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGPathAddRect(path, NULL, CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height));
