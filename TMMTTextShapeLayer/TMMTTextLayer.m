@@ -351,6 +351,8 @@
 				
 			}
 			
+			free(runOrigin);
+			
 		}
 
 		
