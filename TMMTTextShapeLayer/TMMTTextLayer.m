@@ -210,6 +210,20 @@
 	
 }
 
+//--------------------------------------------------------
+
+- (void)setFrame:(CGRect)frame
+{
+	
+	if ((frame.size.height == 0) || (frame.size.width==0))
+		return;
+	
+	[super setFrame:frame];
+	[self updateAttributedString];
+	[self updateTextPath];
+	
+}
+
 
 //--------------------------------------------------------
 

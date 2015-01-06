@@ -16,13 +16,15 @@
  
  @header TMMTTextShapeLayer
  
- @brief A CALayer subclass that renders text as a CGPath, instead of compositing the text into a backing store like other classes. *cough*CATextLayer*cough* This class is useful if you are using strings or attributed strings that have the same attributes throughout the entire string.  If you have varying attributes, you should use the @b TMMTAttributedTextLayer instead.
+ @brief A CALayer subclass that renders text as a CGPath, instead of compositing the text into a backing store like other classes. This class is useful if you are using strings or attributed strings that have the same attributes throughout the entire string.  If you have varying attributes, you should use the @b TMMTAttributedTextLayer instead.  Also, if your superlayer has its property geometryFlipped set to true, you need to to so here as well.  TMMTLayers do not add AffineTransforms to compensate for flippedness.
  
  
  @discussion This will be a multi-phased project.  Currently there is support for whatever the font natively supports.
  @par 1. Creating the TextShapeLayer to render text as a path - Completed 12/19/14
  @par 2. Altering the behavior so that it can accept attributed strings and add different shape layers for each run. - Completed 12/20/14
- @par 3. Adding Support For strikethrough and underline
+ @par 3. Adding Support For strikethrough and underline by using Vector Boolean by Fortunate Bear
+ @par 4. Adding support for truncation modes
+ 
  
  
  
@@ -46,6 +48,19 @@
 @property (assign) NSUInteger ligatureType;
 
 
+
+
+
+- (void)setAlignmentMode:(NSString *)alignment;
+- (void)setFont:(CFTypeRef)font;
+- (void)setForegroundColor:(CGColorRef)color;
+- (void)setFontSize:(NSUInteger)fontSize;
+
+
+@property (readwrite, copy) NSString *truncationMode;
+@property (readwrite, assign, getter=isWrapped) BOOL wrapped;
+
+
 /*!
  
  @brief currently not implemented does nothing
@@ -54,17 +69,6 @@
 @property (assign) BOOL underlined;
 @property (assign) BOOL striketrough;
 @property (retain) NSColor *strikethroughColor;
-
-- (void)setAlignmentMode:(NSString *)alignment;
-- (void)setFont:(CFTypeRef)font;
-- (void)setForegroundColor:(CGColorRef)color;
-- (void)setFontSize:(NSUInteger)fontSize;
-
-@property (readwrite, assign, getter=isWrapped) BOOL wrapped;
-
-//@property(copy) NSString *truncationMode;
-//@property(getter=isWrapped) BOOL wrapped;
-
 
 //The properties that I will have to replace in my new class.
 
