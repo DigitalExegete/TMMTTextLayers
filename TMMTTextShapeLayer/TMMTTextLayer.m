@@ -191,7 +191,7 @@
 		
 	attributedString = [attrString copy];
 	
-	self.stringSize = [attributedString size];
+	
 	
 }
 
@@ -361,6 +361,7 @@
 	self.path = textPath;
 	CGPathRelease(textPath);
 	free(lineOrigins);
+	[self setStringSize:NSIntegralRect(CGPathGetBoundingBox(self.path)).size];
 }
 
 @end
