@@ -63,7 +63,9 @@
 	
 	[_string release];
 	[attributedString release];
-	
+	[_textColor release];
+	[_textFont release];
+	[_textStrokeColor release];
 	[_runShapeLayerArray removeAllObjects];
 	[_runShapeLayerArray release];
 	[super dealloc];
@@ -167,7 +169,7 @@
 	//Stroke Color
 	[layerTextAttributeDictionary setValue:self.textStrokeColor forKey:NSStrokeColorAttributeName];
 	
-	if (self.striketrough)
+	if (self.strikethrough)
 	{
 		//Strikethrough
 		[layerTextAttributeDictionary setValue:@(1) forKey:NSStrikethroughStyleAttributeName];
@@ -191,6 +193,15 @@
 		
 	attributedString = [attrString copy];
 	
+	//How... we haven't made the path yet....
+	if (self.path)
+		self.stringSize = NSIntegralRect(CGPathGetBoundingBox(self.path)).size;
+	
+	if (NSEqualRects(self.bounds, NSZeroRect))
+	{
+		if (!NSEqualSizes(self.stringSize, NSZeroSize))
+			self.bounds = NSMakeRect(0, 0, self.stringSize.width, self.stringSize.height);
+	}
 	
 	
 }
@@ -291,18 +302,42 @@
 	
 	CTFramesetterRef layerTextFrameSetter =  CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attributedString);
 	CGMutablePathRef path = CGPathCreateMutable();
+	
+	if (NSEqualRects(self.bounds, NSZeroRect))
+	{
+		NSRect bounds = self.bounds;
+		if (!NSEqualRects(self.superlayer.bounds, NSZeroRect))
+			bounds = [self.superlayer bounds];
+		else
+			bounds.size = [attributedString size];
+		
+		self.bounds = bounds;
+		
+	}
+	
 	CGPathAddRect(path, NULL, CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height));
 	CTFrameRef layerTextFrame = CTFramesetterCreateFrame(layerTextFrameSetter, CFRangeMake(0, 0), path, NULL);
 	
-	CFAutorelease(path);
-	CFAutorelease(layerTextFrame);
-	CFAutorelease(layerTextFrameSetter);
 	
 	
 	CGPoint * lineOrigins = malloc(lineCount * sizeof(CGPoint));
 	CTFrameGetLineOrigins(layerTextFrame, CFRangeMake(0, 0), lineOrigins);
 	
 	CFArrayRef lineArray = CTFrameGetLines(layerTextFrame);
+	
+	//If the lines don't equal each other, then we need to make our frame bigger....and call the slow -size method;
+	if (CFArrayGetCount(lineArray)==0 && lineCount==1)
+	{
+		
+		NSSize stSize = [attributedString size];
+		self.bounds = NSMakeRect(0, 0, stSize.width, stSize.height);
+		CGPathRelease(path);
+		CFRelease(layerTextFrame);
+		path = CGPathCreateMutable();
+		CGPathAddRect(path, NULL, self.bounds);
+		layerTextFrame = CTFramesetterCreateFrame(layerTextFrameSetter, CFRangeMake(0,0), path, NULL);
+		lineArray = CTFrameGetLines(layerTextFrame);
+	}
 
 	self.runShapeLayerArray = [NSMutableArray array];
 	CGMutablePathRef textPath = CGPathCreateMutable();
@@ -312,10 +347,16 @@
 	{
 	
 		CTLineRef line = (CTLineRef)CFArrayGetValueAtIndex(lineArray, lineIndex);
+//		CGMutablePathRef linePath = NULL;
+//		if (self.strikethrough)
+//		{
+//			
+//			linePath = CGPathCreateMutable();
+//			
+//		}
 		
 		CFArrayRef runArray = CTLineGetGlyphRuns(line);
 		
-		// for each RUN make a new CAShapeLayer Sublayer
 		// TODO: If there is only one run, just use this layer as the layer.
 		for (CFIndex runIndex = 0; runIndex < CFArrayGetCount(runArray); runIndex++)
 		{
@@ -345,6 +386,7 @@
 			self.strokeColor = strokeColor;
 			self.lineWidth = strokeWidth;
 			
+			
 			// for each GLYPH in run Get the position, and then place the CAShapeLayer for that run at the position for those glyphs
 			CGPoint * runOrigin = malloc(sizeof(CGPoint)*CTRunGetGlyphCount(run));
 			CFRange glyphRanges = CFRangeMake(0, CTRunGetGlyphCount(run));
@@ -360,10 +402,33 @@
 				CGPathRef path = CTFontCreatePathForGlyph(runFont, glyph, NULL);
 				
 				CGAffineTransform transform = CGAffineTransformMakeTranslation(lineOrigins[lineIndex].x+runOrigin[runGlyphIndex].x, lineOrigins[lineIndex].y+runOrigin[runGlyphIndex].y);
-				CGPathAddPath(textPath, &transform, path);
+//				if(self.strikethrough)
+//					CGPathAddPath(linePath, &transform, path);
+//				else
+					CGPathAddPath(textPath, &transform, path);
+				
+				
 				CGPathRelease(path);
 				
 			}
+			
+//			if (self.strikethrough)
+//			{
+//				
+//				NSBezierPath *tempPath = [[NSBezierPath alloc] initWithCGPath:linePath];
+//				
+//				NSRect tempRect = [tempPath bounds];
+//				CAShapeLayer *lineStrikeThroughLayer = [CAShapeLayer layer];
+//				
+//				NSRect strikeThroughRect = NSMakeRect(NSMinX(tempRect), NSMidY(tempRect), NSWidth(tempRect), tempRect.size.height/10);
+//				
+//				CGPathRef strikeThroughPath = CGPathCreateWithRect(strikeThroughRect, NULL);
+//				
+//				
+//				CGPathAddPath(textPath, NULL, linePath);
+//				CGPathRelease(linePath);
+//			}
+			
 			
 			free(runOrigin);
 			
@@ -372,8 +437,13 @@
 		
 
 	}
+	
+	
 	self.path = textPath;
+	CFRelease(layerTextFrame);
+	CFRelease(layerTextFrameSetter);
 	CGPathRelease(textPath);
+	CGPathRelease(path);
 	free(lineOrigins);
 	[self setStringSize:NSIntegralRect(CGPathGetBoundingBox(self.path)).size];
 }

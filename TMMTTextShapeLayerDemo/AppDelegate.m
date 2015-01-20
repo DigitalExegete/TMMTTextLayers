@@ -13,6 +13,7 @@
 
 #import "AppDelegate.h"
 #import "TMMTTextLayer.h"
+#import "TMMTCClefLayer.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +25,7 @@
 @property (retain) IBOutlet NSPanel *textInputPanel;
 @property (assign) BOOL showWindow;
 @property (retain) TMMTTextLayer *textLayer;
+@property (retain) CATextLayer *regularTextLayer;
 @property (copy) NSString *zoomString;
 
 @end
@@ -60,12 +62,14 @@
 	[newTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
 	[newTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY relativeTo:@"superlayer" attribute:kCAConstraintMidY offset:-20]];
 	[newTextLayer setParagraphAlignment:NSCenterTextAlignment];
+	[newTextLayer setActions:@{@"contentsScale":[NSNull null], @"position":[NSNull null], @"contents":[NSNull null]}];
 	[newTextLayer setBorderWidth:0];
 	[self.layerView setFrame:self.layerView.superview.bounds];
 	[[self.layerView layer] addSublayer:newTextLayer];
 	newTextLayer.textFont = [NSFont systemFontOfSize:16];//[NSFont fontWithName:@"Helvetica Neue" size:16];
 	[newTextLayer setString:@"TMMTTextLayer"];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidSmartZoom) name:NSScrollViewDidEndLiveMagnifyNotification object:nil];
 	
 	CATextLayer *regularTextLayer = [CATextLayer layer];
 	[regularTextLayer setBackgroundColor:[[NSColor whiteColor] CGColor]];
@@ -76,17 +80,32 @@
 	[regularTextLayer setFont:(CTFontRef)[NSFont systemFontOfSize:12]];
 	[regularTextLayer setFontSize:16];
 	[regularTextLayer setBorderWidth:0];
+	[regularTextLayer setActions:@{@"contentsScale":[NSNull null], @"position":[NSNull null], @"contents":[NSNull null]}];
 	[regularTextLayer setString:@"CATextLayer"];
 	[regularTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
 	[regularTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY relativeTo:@"superlayer" attribute:kCAConstraintMidY offset:20]];
 	[self.layerView.layer addSublayer:regularTextLayer];
 	[regularTextLayer setNeedsDisplay];
+	self.regularTextLayer = regularTextLayer;
+	
 	
 	
 	self.scrollView.magnification = 1.0;
-	self.zoomString = @"Zoom: 1.0";
+	self.zoomString = [NSString stringWithFormat:@"Zoom: %2.02f",self.scrollView.magnification];
 
 
+
+}
+
+-(void)scrollViewDidSmartZoom
+{
+	
+	CGFloat scale = [self.scrollView magnification];
+//
+//	scale = roundf(scale);
+//	
+//	self.scrollView.magnification = scale;
+	self.regularTextLayer.contentsScale = [[NSScreen mainScreen] backingScaleFactor] * scale;
 
 }
 
@@ -95,12 +114,13 @@
 	
 	if ([keyPath isEqualToString:@"magnification"])
 	{
-		self.zoomString = [NSString stringWithFormat:@"Zoom: %2.1f",self.scrollView.magnification];
+		self.zoomString = [NSString stringWithFormat:@"Zoom: %2.02f",self.scrollView.magnification];
 		
 		if (self.scrollView.magnification > 1)
 		{
 			[[self.scrollView horizontalScroller] setHidden:NO];
 			[[self.scrollView verticalScroller] setHidden:NO];
+			
 		}
 		else
 		{
@@ -109,6 +129,9 @@
 			if (self.scrollView.magnification == 1)
 				[self.layerView setFrame:self.scrollView.contentView.bounds];
 		}
+		
+		//If they have zooming magnification enabled...
+//		self.regularTextLayer.contentsScale = [[NSScreen mainScreen] backingScaleFactor] * self.scrollView.magnification;
 		
 	}
 	else

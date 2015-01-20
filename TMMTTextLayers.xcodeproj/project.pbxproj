@@ -28,6 +28,10 @@
 		BE60C6931A4682590094DC27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE60C68F1A4682590094DC27 /* main.m */; };
 		BE60C6941A4682590094DC27 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE60C6901A4682590094DC27 /* Images.xcassets */; };
 		BE60C6971A46838C0094DC27 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE60C6951A46838C0094DC27 /* MainMenu.xib */; };
+		BED744A71A5E59E400C8BDEC /* TMMTCClefLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BED744A61A5E59E400C8BDEC /* TMMTCClefLayer.m */; };
+		BED744AE1A5E5AB500C8BDEC /* SCPVectorUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BED744A91A5E5AB500C8BDEC /* SCPVectorUtilities.m */; };
+		BED744AF1A5E5AB500C8BDEC /* NSBezierPath+FitCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = BED744AB1A5E5AB500C8BDEC /* NSBezierPath+FitCurve.m */; };
+		BED744B01A5E5AB500C8BDEC /* NSBezierPath+SCPVectorKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BED744AD1A5E5AB500C8BDEC /* NSBezierPath+SCPVectorKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +84,14 @@
 		BE60C68F1A4682590094DC27 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../TMMTTextShapeLayerDemo/main.m; sourceTree = "<group>"; };
 		BE60C6901A4682590094DC27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TMMTTextShapeLayerDemo/Images.xcassets; sourceTree = "<group>"; };
 		BE60C6961A46838C0094DC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = TMMTTextShapeLayerDemo/Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		BED744A51A5E59E400C8BDEC /* TMMTCClefLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMTCClefLayer.h; sourceTree = "<group>"; };
+		BED744A61A5E59E400C8BDEC /* TMMTCClefLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMTCClefLayer.m; sourceTree = "<group>"; };
+		BED744A81A5E5AB500C8BDEC /* SCPVectorUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPVectorUtilities.h; sourceTree = "<group>"; };
+		BED744A91A5E5AB500C8BDEC /* SCPVectorUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPVectorUtilities.m; sourceTree = "<group>"; };
+		BED744AA1A5E5AB500C8BDEC /* NSBezierPath+FitCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+FitCurve.h"; sourceTree = "<group>"; };
+		BED744AB1A5E5AB500C8BDEC /* NSBezierPath+FitCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+FitCurve.m"; sourceTree = "<group>"; };
+		BED744AC1A5E5AB500C8BDEC /* NSBezierPath+SCPVectorKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+SCPVectorKit.h"; sourceTree = "<group>"; };
+		BED744AD1A5E5AB500C8BDEC /* NSBezierPath+SCPVectorKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+SCPVectorKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +116,7 @@
 		BE60C5D11A45163E0094DC27 = {
 			isa = PBXGroup;
 			children = (
+				BED744B11A5E5ABC00C8BDEC /* SCPVectorKit */,
 				BE60C6021A4642DE0094DC27 /* TestApplication */,
 				BE60C6001A451EAA0094DC27 /* Quartz.framework */,
 				BE60C5DC1A45163E0094DC27 /* TMMTTextShapeLayer */,
@@ -151,6 +164,8 @@
 				BE60C68D1A4682590094DC27 /* AppDelegate.m */,
 				BE60C6901A4682590094DC27 /* Images.xcassets */,
 				BE60C5DD1A45163E0094DC27 /* Supporting Files */,
+				BED744A51A5E59E400C8BDEC /* TMMTCClefLayer.h */,
+				BED744A61A5E59E400C8BDEC /* TMMTCClefLayer.m */,
 			);
 			name = TestApplication;
 			sourceTree = "<group>";
@@ -186,6 +201,19 @@
 				BE60C6781A46813E0094DC27 /* NSBezierPath+Utilities.m */,
 			);
 			name = VectorBoolean;
+			sourceTree = "<group>";
+		};
+		BED744B11A5E5ABC00C8BDEC /* SCPVectorKit */ = {
+			isa = PBXGroup;
+			children = (
+				BED744A81A5E5AB500C8BDEC /* SCPVectorUtilities.h */,
+				BED744A91A5E5AB500C8BDEC /* SCPVectorUtilities.m */,
+				BED744AA1A5E5AB500C8BDEC /* NSBezierPath+FitCurve.h */,
+				BED744AB1A5E5AB500C8BDEC /* NSBezierPath+FitCurve.m */,
+				BED744AC1A5E5AB500C8BDEC /* NSBezierPath+SCPVectorKit.h */,
+				BED744AD1A5E5AB500C8BDEC /* NSBezierPath+SCPVectorKit.m */,
+			);
+			name = SCPVectorKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED744AF1A5E5AB500C8BDEC /* NSBezierPath+FitCurve.m in Sources */,
 				BE60C68A1A4682420094DC27 /* TMMTAttributedTextLayer.m in Sources */,
 				BE60C6821A46813E0094DC27 /* FBEdgeCrossing.m in Sources */,
 				BE60C67B1A46813E0094DC27 /* FBBezierCurve+Edge.m in Sources */,
@@ -297,10 +326,13 @@
 				BE60C68B1A4682420094DC27 /* TMMTTextLayer.m in Sources */,
 				BE60C67D1A46813E0094DC27 /* FBBezierIntersection.m in Sources */,
 				BE60C6791A46813E0094DC27 /* FBBezierContour.m in Sources */,
+				BED744AE1A5E5AB500C8BDEC /* SCPVectorUtilities.m in Sources */,
 				BE60C67E1A46813E0094DC27 /* FBBezierIntersectRange.m in Sources */,
+				BED744B01A5E5AB500C8BDEC /* NSBezierPath+SCPVectorKit.m in Sources */,
 				BE60C67F1A46813E0094DC27 /* FBContourOverlap.m in Sources */,
 				BE60C6851A46813E0094DC27 /* NSBezierPath+Utilities.m in Sources */,
 				BE60C6841A46813E0094DC27 /* NSBezierPath+Boolean.m in Sources */,
+				BED744A71A5E59E400C8BDEC /* TMMTCClefLayer.m in Sources */,
 				BE60C6911A4682590094DC27 /* AppDelegate.m in Sources */,
 				BE60C67C1A46813E0094DC27 /* FBBezierGraph.m in Sources */,
 				BE60C6931A4682590094DC27 /* main.m in Sources */,
@@ -490,6 +522,7 @@
 				BE60C5F91A45163E0094DC27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BE60C5FA1A45163E0094DC27 /* Build configuration list for PBXNativeTarget "TMMTTextLayersTests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +531,7 @@
 				BE60C5FC1A45163E0094DC27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

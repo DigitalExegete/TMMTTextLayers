@@ -11,6 +11,7 @@
 #import <Quartz/Quartz.h>
 #import "NSBezierPath+Boolean.h"
 #import "NSBezierPath+Utilities.h"
+#import "NSBezierPath+SCPVectorKit.h"
 
 /*!
  
@@ -67,7 +68,7 @@
  
  */
 @property (assign) BOOL underlined;
-@property (assign) BOOL striketrough;
+@property (assign) BOOL strikethrough;
 @property (retain) NSColor *strikethroughColor;
 
 //The properties that I will have to replace in my new class.
