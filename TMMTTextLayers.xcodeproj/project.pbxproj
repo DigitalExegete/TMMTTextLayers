@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE171A1C1AA2DBED0081C61F /* MWCGPath.m in Sources */ = {isa = PBXBuildFile; fileRef = BE171A1B1AA2DBED0081C61F /* MWCGPath.m */; };
 		BE60C6011A451EAA0094DC27 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE60C6001A451EAA0094DC27 /* Quartz.framework */; };
 		BE60C6791A46813E0094DC27 /* FBBezierContour.m in Sources */ = {isa = PBXBuildFile; fileRef = BE60C6601A46813E0094DC27 /* FBBezierContour.m */; };
 		BE60C67A1A46813E0094DC27 /* FBBezierCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = BE60C6621A46813E0094DC27 /* FBBezierCurve.m */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE171A1A1AA2DBED0081C61F /* MWCGPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCGPath.h; sourceTree = "<group>"; };
+		BE171A1B1AA2DBED0081C61F /* MWCGPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCGPath.m; sourceTree = "<group>"; };
 		BE60C5DA1A45163E0094DC27 /* TMMTTextLayers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMMTTextLayers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE60C5ED1A45163E0094DC27 /* TMMTTextLayersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TMMTTextLayersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE60C6001A451EAA0094DC27 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -206,6 +209,8 @@
 		BED744B11A5E5ABC00C8BDEC /* SCPVectorKit */ = {
 			isa = PBXGroup;
 			children = (
+				BE171A1A1AA2DBED0081C61F /* MWCGPath.h */,
+				BE171A1B1AA2DBED0081C61F /* MWCGPath.m */,
 				BED744A81A5E5AB500C8BDEC /* SCPVectorUtilities.h */,
 				BED744A91A5E5AB500C8BDEC /* SCPVectorUtilities.m */,
 				BED744AA1A5E5AB500C8BDEC /* NSBezierPath+FitCurve.h */,
@@ -330,6 +335,7 @@
 				BE60C67E1A46813E0094DC27 /* FBBezierIntersectRange.m in Sources */,
 				BED744B01A5E5AB500C8BDEC /* NSBezierPath+SCPVectorKit.m in Sources */,
 				BE60C67F1A46813E0094DC27 /* FBContourOverlap.m in Sources */,
+				BE171A1C1AA2DBED0081C61F /* MWCGPath.m in Sources */,
 				BE60C6851A46813E0094DC27 /* NSBezierPath+Utilities.m in Sources */,
 				BE60C6841A46813E0094DC27 /* NSBezierPath+Boolean.m in Sources */,
 				BED744A71A5E59E400C8BDEC /* TMMTCClefLayer.m in Sources */,

@@ -1,6 +1,6 @@
 //
-//  TMMTTextShapeLayer.m
-//  TMMTTextShapeLayerTest
+//  TMMTTextLayer.m
+//  TMMTTextLayerTest
 //
 //  Created by William Jones on 12/19/14.
 //  Copyright (c) 2014 Treblotto Music and Music Tech. All rights reserved.
@@ -18,17 +18,11 @@
 	
 	id _string;
 	
-	/*!
-	 
-	 @brief This is the string that is actually rendered.  If a user sets the @c string property to an NSString, this class will create an NSAttributedString based on the various properties of this class.
-	 
-	 */
-	NSAttributedString *attributedString;
-	
 }
 
 @property (assign) NSSize stringSize;
 @property (retain) NSMutableArray *runShapeLayerArray;
+@property (copy) NSAttributedString *attributedString;
 @end
 
 @implementation TMMTTextLayer
@@ -41,14 +35,14 @@
 	{
 		
 		_string = nil;
-		attributedString = nil;
+		_attributedString = nil;
 		_ligatureType = 1;
 		_paragraphAlignment = NSLeftTextAlignment;
 		_strokeWidth = 0;
 		_textStrokeColor = [[NSColor clearColor] retain];
 		_textColor = [[NSColor blackColor] retain];
 		_textFont = [[NSFont systemFontOfSize:12] retain];
-		
+		_displayBoundingBoxOfText = NO;
 		
 	}
 	return self;
@@ -62,7 +56,7 @@
 		[sLayer removeFromSuperlayer];
 	
 	[_string release];
-	[attributedString release];
+	[_attributedString release];
 	[_textColor release];
 	[_textFont release];
 	[_textStrokeColor release];
@@ -90,43 +84,55 @@
 
 - (id)string
 {
-
+	
 	return _string;
 	
 }
+
+
 
 - (void)setString:(id)string
 {
 	
 	if (![string isEqualToString:_string])
 	{
-		[self.runShapeLayerArray enumerateObjectsUsingBlock:^(CAShapeLayer *tsl, NSUInteger idx, BOOL *stop) {
-			
-			[tsl removeFromSuperlayer];
-			
-		}];
 		
-		[self.runShapeLayerArray removeAllObjects];
-		
-		_string = [string copy];
-		
-		
-		if ([string isKindOfClass:[NSAttributedString class]])
+		@synchronized (self)
 		{
-			attributedString = _string;
-		}
-		else if ([string isKindOfClass:[NSString class]])
-		{
-			[self updateAttributedString];
+			
+			[_string release];
+			
+			[self.runShapeLayerArray enumerateObjectsUsingBlock:^(CAShapeLayer *tsl, NSUInteger idx, BOOL *stop) {
+				
+				[tsl removeFromSuperlayer];
+				
+			}];
+			
+			[self.runShapeLayerArray removeAllObjects];
+			
+			_string = [string copy];
+			
+			
+			if ([string isKindOfClass:[NSAttributedString class]])
+			{
+				self.attributedString = _string;
+			}
+			else if ([string isKindOfClass:[NSString class]])
+			{
+				[self updateAttributedString];
+				
+			}
+			else
+			{
+				[_string release];
+				_string = nil;
+				
+				return;
+			}
+			
+			[self updateTextPath];
 			
 		}
-		else
-		{	_string = nil;
-			return;
-		}
-		
-		[self updateTextPath];
-		
 	}
 }
 
@@ -135,8 +141,9 @@
 	
 	if ([[self string] length] < 1)
 	{
+		[_string release];
 		_string = nil;
-		attributedString = nil;
+		self.attributedString = nil;
 		return;
 		
 	}
@@ -147,9 +154,12 @@
 	//Text Font
 	NSFont *tmmtShapeLayerFont = self.textFont;
 	
+	
+	
 	if (!tmmtShapeLayerFont)
 		tmmtShapeLayerFont = [NSFont systemFontOfSize:kFontSize];
 	[layerTextAttributeDictionary setObject:tmmtShapeLayerFont forKey:NSFontAttributeName];
+	
 	
 	
 	//Ligatures
@@ -160,7 +170,7 @@
 	
 	if (!foregroundColor)
 		foregroundColor = [NSColor blackColor];
-
+	
 	[layerTextAttributeDictionary setObject:foregroundColor forKey:NSForegroundColorAttributeName];
 	
 	//Stroke Weight
@@ -184,16 +194,12 @@
 	NSMutableParagraphStyle *tmmtParagraphStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
 	[tmmtParagraphStyle setAlignment:self.paragraphAlignment];
 	[layerTextAttributeDictionary setObject:tmmtParagraphStyle forKey:NSParagraphStyleAttributeName];
+	
+	
 	NSMutableAttributedString *attrString = [[[NSMutableAttributedString alloc] initWithString:self.string attributes:layerTextAttributeDictionary] autorelease];
 	
+	[self setAttributedString:attrString];
 	
-	
-	if (attributedString)
-		[attributedString release];
-		
-	attributedString = [attrString copy];
-	
-	//How... we haven't made the path yet....
 	if (self.path)
 		self.stringSize = NSIntegralRect(CGPathGetBoundingBox(self.path)).size;
 	
@@ -236,6 +242,15 @@
 }
 
 
+- (void)setBounds:(CGRect)bounds
+{
+	
+	[super setBounds:bounds];
+	[self updateAttributedString];
+	[self updateTextPath];
+	
+}
+
 //--------------------------------------------------------
 
 -(void)setForegroundColor:(CGColorRef)color
@@ -248,7 +263,14 @@
 	
 }
 
-
+- (void)updateTextFont:(NSFont *)newFont
+{
+	
+	[self setTextFont:newFont];
+	[self updateAttributedString];
+	[self updateTextPath];
+	
+}
 
 //--------------------------------------------------------
 
@@ -268,7 +290,7 @@
 		self.textFont = (NSFont *)font;
 	}
 	
-
+	
 	
 	[self updateAttributedString];
 	[self updateTextPath];
@@ -293,14 +315,14 @@
 -(void)updateTextPath
 {
 	
-	if (!attributedString)
+	if (!self.attributedString)
 		return;
 	
 	NSUInteger lineCount =  [[self.string componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] count];
 	
 	
 	
-	CTFramesetterRef layerTextFrameSetter =  CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attributedString);
+	CTFramesetterRef layerTextFrameSetter =  CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.attributedString);
 	CGMutablePathRef path = CGPathCreateMutable();
 	
 	if (NSEqualRects(self.bounds, NSZeroRect))
@@ -309,7 +331,7 @@
 		if (!NSEqualRects(self.superlayer.bounds, NSZeroRect))
 			bounds = [self.superlayer bounds];
 		else
-			bounds.size = [attributedString size];
+			bounds.size = [self.attributedString size];
 		
 		self.bounds = bounds;
 		
@@ -329,7 +351,7 @@
 	if (CFArrayGetCount(lineArray)==0 && lineCount==1)
 	{
 		
-		NSSize stSize = [attributedString size];
+		NSSize stSize = [self.attributedString size];
 		self.bounds = NSMakeRect(0, 0, stSize.width, stSize.height);
 		CGPathRelease(path);
 		CFRelease(layerTextFrame);
@@ -338,29 +360,22 @@
 		layerTextFrame = CTFramesetterCreateFrame(layerTextFrameSetter, CFRangeMake(0,0), path, NULL);
 		lineArray = CTFrameGetLines(layerTextFrame);
 	}
-
+	
 	self.runShapeLayerArray = [NSMutableArray array];
 	CGMutablePathRef textPath = CGPathCreateMutable();
-
-
+	
+	
 	for (CFIndex lineIndex = 0; lineIndex < CFArrayGetCount(lineArray); lineIndex++)
 	{
-	
+		
 		CTLineRef line = (CTLineRef)CFArrayGetValueAtIndex(lineArray, lineIndex);
-//		CGMutablePathRef linePath = NULL;
-//		if (self.strikethrough)
-//		{
-//			
-//			linePath = CGPathCreateMutable();
-//			
-//		}
 		
 		CFArrayRef runArray = CTLineGetGlyphRuns(line);
 		
 		// TODO: If there is only one run, just use this layer as the layer.
 		for (CFIndex runIndex = 0; runIndex < CFArrayGetCount(runArray); runIndex++)
 		{
-
+			
 			CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runArray, runIndex);
 			
 			// Get FONT for this run
@@ -375,9 +390,9 @@
 			
 			BOOL fillText = [runDict[NSStrokeWidthAttributeName] floatValue] <= 0;
 			
-			CGFloat strokeWidth = fabsf([(__bridge NSFont *)runFont pointSize] * strokeWidthPercent);
+			CGFloat strokeWidth = fabs([(__bridge NSFont *)runFont pointSize] * strokeWidthPercent);
 			
-
+			
 			
 			if(!fillText)
 				runColor = [[NSColor clearColor] CGColor];
@@ -391,7 +406,7 @@
 			CGPoint * runOrigin = malloc(sizeof(CGPoint)*CTRunGetGlyphCount(run));
 			CFRange glyphRanges = CFRangeMake(0, CTRunGetGlyphCount(run));
 			CTRunGetPositions(run, glyphRanges, runOrigin);
-
+			
 			for (CFIndex runGlyphIndex = 0; runGlyphIndex < CTRunGetGlyphCount(run); runGlyphIndex++)
 			{
 				// get Glyph & Glyph-data
@@ -402,40 +417,21 @@
 				CGPathRef path = CTFontCreatePathForGlyph(runFont, glyph, NULL);
 				
 				CGAffineTransform transform = CGAffineTransformMakeTranslation(lineOrigins[lineIndex].x+runOrigin[runGlyphIndex].x, lineOrigins[lineIndex].y+runOrigin[runGlyphIndex].y);
-//				if(self.strikethrough)
-//					CGPathAddPath(linePath, &transform, path);
-//				else
-					CGPathAddPath(textPath, &transform, path);
+				
+				CGPathAddPath(textPath, &transform, path);
 				
 				
 				CGPathRelease(path);
 				
 			}
 			
-//			if (self.strikethrough)
-//			{
-//				
-//				NSBezierPath *tempPath = [[NSBezierPath alloc] initWithCGPath:linePath];
-//				
-//				NSRect tempRect = [tempPath bounds];
-//				CAShapeLayer *lineStrikeThroughLayer = [CAShapeLayer layer];
-//				
-//				NSRect strikeThroughRect = NSMakeRect(NSMinX(tempRect), NSMidY(tempRect), NSWidth(tempRect), tempRect.size.height/10);
-//				
-//				CGPathRef strikeThroughPath = CGPathCreateWithRect(strikeThroughRect, NULL);
-//				
-//				
-//				CGPathAddPath(textPath, NULL, linePath);
-//				CGPathRelease(linePath);
-//			}
-			
 			
 			free(runOrigin);
 			
 		}
-
 		
-
+		
+		
 	}
 	
 	
@@ -445,6 +441,9 @@
 	CGPathRelease(textPath);
 	CGPathRelease(path);
 	free(lineOrigins);
+	if (self.displayBoundingBoxOfText)
+		NSLog(@"Bounding Box: %@", NSStringFromRect(NSIntegralRect(CGPathGetBoundingBox(self.path))));
+	
 	[self setStringSize:NSIntegralRect(CGPathGetBoundingBox(self.path)).size];
 }
 

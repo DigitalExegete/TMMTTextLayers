@@ -13,7 +13,7 @@
 
 #import "AppDelegate.h"
 #import "TMMTTextLayer.h"
-#import "TMMTCClefLayer.h"
+
 
 @interface AppDelegate ()
 
@@ -52,11 +52,11 @@
 	[self.clipView setWantsLayer:YES];
 	[self.layerView setWantsLayer:YES];
 	self.layerView.layer.layoutManager = [CAConstraintLayoutManager layoutManager];
-	[self.layerView.layer setBackgroundColor:[[NSColor whiteColor] CGColor]];
+	[self.layerView.layer setBackgroundColor:[[NSColor clearColor] CGColor]];
 	
 	TMMTTextLayer *newTextLayer = [TMMTTextLayer layer];
 	self.textLayer = newTextLayer;
-	[newTextLayer setBackgroundColor:[[NSColor whiteColor] CGColor]];
+	[newTextLayer setBackgroundColor:[[NSColor clearColor] CGColor]];
 	[newTextLayer setDelegate:newTextLayer];
 	[newTextLayer setFrame:NSMakeRect(10, 50, 160, 30)];
 	[newTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMidX]];
@@ -66,13 +66,16 @@
 	[newTextLayer setBorderWidth:0];
 	[self.layerView setFrame:self.layerView.superview.bounds];
 	[[self.layerView layer] addSublayer:newTextLayer];
-	newTextLayer.textFont = [NSFont systemFontOfSize:16];//[NSFont fontWithName:@"Helvetica Neue" size:16];
+	newTextLayer.textFont = [NSFont fontWithName:@"Helvetica Neue" size:16];
 	[newTextLayer setString:@"TMMTTextLayer"];
+	[newTextLayer setTextColor:[NSColor blackColor]];
+	
+	//R185 G157 B207
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewDidSmartZoom) name:NSScrollViewDidEndLiveMagnifyNotification object:nil];
 	
 	CATextLayer *regularTextLayer = [CATextLayer layer];
-	[regularTextLayer setBackgroundColor:[[NSColor whiteColor] CGColor]];
+	[regularTextLayer setBackgroundColor:[[NSColor clearColor] CGColor]];
 	[regularTextLayer setForegroundColor:[[NSColor blackColor] CGColor]];
 	[regularTextLayer setDelegate:regularTextLayer];
 	[regularTextLayer setFrame:NSMakeRect(10,80, 160, 30)];
@@ -87,8 +90,7 @@
 	[self.layerView.layer addSublayer:regularTextLayer];
 	[regularTextLayer setNeedsDisplay];
 	self.regularTextLayer = regularTextLayer;
-	
-	
+
 	
 	self.scrollView.magnification = 1.0;
 	self.zoomString = [NSString stringWithFormat:@"Zoom: %2.02f",self.scrollView.magnification];
@@ -100,12 +102,12 @@
 -(void)scrollViewDidSmartZoom
 {
 	
-	CGFloat scale = [self.scrollView magnification];
+	//CGFloat scale = [self.scrollView magnification];
 //
 //	scale = roundf(scale);
 //	
 //	self.scrollView.magnification = scale;
-	self.regularTextLayer.contentsScale = [[NSScreen mainScreen] backingScaleFactor] * scale;
+	//self.regularTextLayer.contentsScale = [[NSScreen mainScreen] backingScaleFactor] * scale;
 
 }
 
@@ -157,7 +159,13 @@
 	// Insert code here to tear down your application
 }
 
-
+- (IBAction)encodeAllTheThings:(id)sender
+{
+	
+	NSData *retData = [NSKeyedArchiver archivedDataWithRootObject:self.textLayer];
+	[retData writeToFile:@"/Users/will/CALayerEncodingTest.dat" atomically:YES];
+	
+}
 
 - (IBAction)updateLayerText:(id)sender
 {
